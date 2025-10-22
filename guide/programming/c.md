@@ -132,16 +132,17 @@ typedef struct {
 # bit field
 In the hardware word, not all of fields are in bytes or words. Instead, in order to save the
 register space, several fields, each of them with several bits, are packed and represented in a
-single register. The example of a I2C register
+single register. The example of a I2C register is like this (NOTE: the layout is usually presented
+from highest bits to lowest bits in hardware manual).
 ```mermaid
 packet
-31-6: "Reserved"
-5: "ferr"
-4: "arb"
-3: "nack"
-2: "rxf"
-1: "txf"
 0: "end"
+1: "txf"
+2: "rxf"
+3: "nack"
+4: "arb"
+5: "ferr"
+6-31: "Reserved"
 ```
 Here is the typical definition of data structure for a register which consists
 of several bit fields.

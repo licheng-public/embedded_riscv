@@ -155,7 +155,7 @@ of several bit fields.
             uint32_t i2c_nak_int:1;    /* [    3],          r,        0x0 */
             uint32_t i2c_arb_int:1;    /* [    4],          r,        0x0 */
             uint32_t i2c_fer_int:1;    /* [    5],          r,        0x0 */
-            uint32_t reserved_6_31:26; /* [23:22],       rsvd,        0x0 */
+            uint32_t reserved_6_31:26; /* [31:6],       rsvd,        0x0 */
         } bit_fields;
         uint32_t val;
     } i2c_int_sts;

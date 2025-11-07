@@ -168,5 +168,38 @@ purpose. It provides some sort of back-compatibility.
 # pointer
 
 # bits operation
+## bits in an integer
+## byte in an integer
+An integer of integer types other than uint8\_t (including char, etc), contains multiple bytes.
+Data operation in embedded system are usually involved with four bytes (word) while the number
+of input could be any number of bytes. This requires to pack the bytes in unit of words. For
+example, user has the bytes of data: {0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99}, to
+send to I2C device in words (4 bytes). Here is the sample code on packing.
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+
+int main(int argc, char *argcv[]) {
+    uint8_t array[] = {
+        0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99
+    };
+    int i = 0;
+    uint32_t val = 0;
+    int j = 0;
+
+    for (i = 0; i < sizeof(array)/ sizeof(array[0]); i++) {
+        val |= array[i] << ((i % 4) * 8);
+        j++;
+        if ((j % 4) == 0 || (i == sizeof(array) / sizeof(array[0]) - 1) ) {
+            printf("i = %d val = 0x%x\n", i, val);
+            val = 0;
+            j = 0;
+        }
+    }
+    return 0;
+}
+```
+The real example is at https://github.com/pine64/bl_iot_sdk/blob/534ee8f59fdfe222d7d143837ecd453ea5778ad2/components/bl602/bl602_std/bl602_std/StdDriver/Src/bl602_i2c.c#L469
 
 # register read/write

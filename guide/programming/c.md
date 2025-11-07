@@ -223,5 +223,5 @@ The real example is [I2c write](https://github.com/pine64/bl_iot_sdk/blob/534ee8
         }
     }
 ```
-
+test only
 # register read/write

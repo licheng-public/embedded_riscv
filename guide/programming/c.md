@@ -200,6 +200,6 @@ int main(int argc, char *argcv[]) {
     return 0;
 }
 ```
-The real example is at https://github.com/pine64/bl_iot_sdk/blob/534ee8f59fdfe222d7d143837ecd453ea5778ad2/components/bl602/bl602_std/bl602_std/StdDriver/Src/bl602_i2c.c#L469
+The real example is [I2c write]{https://github.com/pine64/bl_iot_sdk/blob/534ee8f59fdfe222d7d143837ecd453ea5778ad2/components/bl602/bl602_std/bl602_std/StdDriver/Src/bl602_i2c.c#L469}
 
 # register read/write

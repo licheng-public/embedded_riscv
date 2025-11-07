@@ -200,6 +200,28 @@ int main(int argc, char *argcv[]) {
     return 0;
 }
 ```
-The real example is [I2c write](https://github.com/pine64/bl_iot_sdk/blob/534ee8f59fdfe222d7d143837ecd453ea5778ad2/components/bl602/bl602_std/bl602_std/StdDriver/Src/bl602_i2c.c#L469)
+The real example is [I2c write](https://github.com/pine64/bl_iot_sdk/blob/534ee8f59fdfe222d7d143837ecd453ea5778ad2/components/bl602/bl602_std/bl602_std/StdDriver/Src/bl602_i2c.c#L469). The code from line 469 to line 494 can be simplified as below.
+```c
+    uint32_t j = 0;
+    for(i = 0; i < cfg->dataSize; i++){
+        /* build the 4 byte word with shifting x8 bits */
+        temp += (cfg->data[i] << ((i % 4) * 8));
+        j++;
+        /* write the word every 4 bytes or the last byte is met */
+        if((j % 4 == 0) || (i == cfg->dataSize - 1)){
+            timeOut = I2C_FIFO_STATUS_TIMEOUT;
+            while(BL_GET_REG_BITS_VAL(BL_RD_REG(I2Cx, I2C_FIFO_CONFIG_1), I2C_TX_FIFO_CNT) == 0){
+                timeOut--;
+                if(timeOut == 0){
+                    I2C_Disable(i2cNo);
+                    return TIMEOUT;
+                }
+            }
+            BL_WR_REG(I2Cx, I2C_FIFO_WDATA, temp);
+            temp = 0;
+            j = 0;
+        }
+    }
+```
 
 # register read/write

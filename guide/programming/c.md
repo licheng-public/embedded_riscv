@@ -74,59 +74,51 @@ Job interviews for low-level programming always bring the topic to candidates. H
 examples you can give it a try. What is the size of below structures?
 
 ```c
-typedef struct {
+struct test2 {
+    uint8_t c;
+    uint16_t a;
+    uint32_t b;
+};
+struct test3 {
     uint8_t c;
     uint32_t b;
     uint16_t a;
-} test1_t;
-
-typedef struct {
-    uint32_t b;
-    uint8_t c;
-    uint16_t a;
-} test2_t;
-
-typedef struct {
+};
+struct test4 {
     uint8_t c;
     uint8_t a;
     uint32_t b;
-} test3_t;
-
-typedee struct {
+};
+struct test5 {
     uint8_t c;
     uint32_t b;
     uint8_t a;
-} test4_t;
-
-typedef struct {
+};
+struct test6 {
     uint32_t b;
     uint8_t c;
     uint16_t a;
-} test5_t;
-
-typedef struct {
+};
+struct test7 {
     uint8_t c;
     uint16_t a;
     uint64_t b;
-} test6_t;
-
-typedef struct {
+};
+struct test8 {
     uint64_t b;
     uint8_t c;
     uint16_t a;
-} test7_t;
-
-typedef struct{
+};
+struct test9 {
     uint8_t c;
     uint64_t b;
     uint16_t a;
-} test8_t;
-
-typedef struct {
+};
+struct test10 {
     uint64_t b;
     uint8_t c;
     uint32_t a;
-} test9_t;
+};
 ```
 
 # bit field

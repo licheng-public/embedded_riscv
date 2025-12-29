@@ -234,12 +234,12 @@ C provides a set of bit operators:
 + |, bitwise inclusive OR
 + ^, bitwise exclusive OR
 + <<, left shift
-+ >>, right shift
++ \>\>, right shift
 + ~, one's complement
 
 Do not get confused *&* and *|* with logic operators, *&&*, *||*, etc!
 
-- clear a single bit at position x
+- **clear a single bit at position x**
 This means set the value of a single bit to 0 (zero). Setting something to zero requires to use
 bit-wise AND operation ( &). The other operand at that specific bit should be 0(zero), and the rest
 of bits need to be 1(one). With that, the other bits in original value can be preserved. For example,
@@ -264,7 +264,7 @@ bool clear_bit_x(uint32_t *p_out, uint32_t in, uint8_t x) {
 }
 ```
 
-- clear multiple bits (n) starting from bit position x
+- **clear multiple bits (n) starting from bit position x**
 This set all n bits to 0 (zero) starting from bit position x. Similiarly this needs to use
 bitwise-AND operation. Let's take an example before generalizing the solution. If n = 2, x =5,
 this would clear the bit 5, 4. Based on what we leared from last example, the other operand
@@ -297,7 +297,7 @@ bool clear_n_bits_x(uint32_t *p_out, uint32_t in, uint8_t n, uint8_t x) {
 }
 ```
 
-- set a single bit at position x
+- **set a single bit at position x**
 This means set the value of a single bit to 1 (one). Setting value to 1 requires to use bit-wise
 inclusive OR operation (|). With the base of above discussion, this would be straightforward.
 (1) 1 << x to get value a (2) |a with the operand to set the bit.
@@ -316,7 +316,7 @@ bool set_bit_x(uint32_t *p_out, uint32_t in, uint8_t x) {
 }
 ```
 
-- set multiple bits (n) starting from bit position x
+- **set multiple bits (n) starting from bit position x**
 This set all n bits to 1 (one) starting from bit position x. This is similar to the section of
 clearing multiple bits except this would use bit-wise inclusive OR (|). The example code is as
 below.
@@ -345,7 +345,7 @@ bool set_n_bits_x(uint32_t *p_out, uint32_t in, uint8_t n, uint8_t x) {
 }
 ```
 
-- toggle a single bit at position x
+- **toggle a single bit at position x**
 This means set the value of a single bit to 1 (one) if current value is 0 (zero), otherwise to 0
 (zero) if current value is 1 (one). This also needs an addtional operand to achieve the goal of
 toggling. Of course, this can be done with naive switching statements, if-else.
@@ -387,7 +387,7 @@ bool toggle_bit_x(uint32_t *p_out, uint32_t in, uint8_t x) {
 Unlike the previous sections regarding clearing and setting, this operation is used not quite
 often in embedded system programmming.
 
-- toggle multiple bits (n) starting from bit position x
+- **toggle multiple bits (n) starting from bit position x**
 This flips all n bits from position x to opposite values, 0 to 1, 1 to 0. This is similar to the
 last section except it is multiple bits.
 ```c
@@ -409,7 +409,7 @@ bool toggle_n_bits_x(uint32_t *p_out, uint32_t in, uint8_t n, uint8_t x) {
 }
 ```
 
-- set a specific value to a multiple bit field
+- **set a specific value to a multiple bit field**
 This set the value of multiple consecutive bits starting from position x to a target value.
 In order to do this, we have to mask off the respective bits to all zeros. After that, OR the
 value with the target values starting from the position x.

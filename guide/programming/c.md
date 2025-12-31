@@ -192,7 +192,7 @@ Some commonly pitfalls of using address/pointers are worth of attention.
 - assumption that *pa + 1* is one byte beyond *pa*, given *pa* is a pointer.
 
 The first one may cause unexpected behaviors of a program, which can be very hard to hunt down.
-The simptom is that the program sometimes works while sometimes it does not work. And the second
+The symptom is that the program sometimes works while sometimes it does not work. And the second
 one actually indicates that pa + 1 points to the next element if pa points to a partitular element
 of an array. The number of bytes distance varies between *pa + 1* and *pa*, depending on the
 type of variable that the pointer points to.
@@ -516,3 +516,40 @@ The real example is [I2c write](https://github.com/pine64/bl_iot_sdk/blob/534ee8
 ```
 
 # register read/write
+
+When the pointer of C programming was discussed above, *address* was mentioned. It is very true
+that it is used when CPU need to access a hardware register. Which/where is the register? This
+is about addressing. Most of contemporary CPU architectures use the same ways of accessing
+registers as the way to accessing memory, called memory-mapped IO.
+
+If a register is located at address *addr*, the access of the value at the address would be
+```c
+val = *addr;
+```
+A SOC may consist of many registers belonging to different devices, such as UART, I2C, GPIO,
+etc. Thus normally ech device has a dedicated address range, called addressing space. Hardware
+manuals give a adress for a particular register within that addressing space. For example, BL602
+has the I2C base address defined as
+```c
+#define I2C_BASE                ((uint32_t)0x4000A300)
+```
+And one of I2C registers is FIFO configuration 1.
+```c
+#define I2C_FIFO_CONFIG_1_OFFSET   (0x84)
+```
+The abolute address that CPU uses to access this register is base + offset, as the offset itself
+is within the I2C device. Reading this register would be like:
+```c
+uint32_t val = *(I2C_BASE + I2C_FIFO_CONFIG_1_OFFSET);
+```
+
+In order to deal with registers from devices, usually macros are defined to handle this
+systematically and elegantly.
+```c
+#define BL_RD_WORD(addr)                (*((volatile uint32_t*)(addr)))
+#define BL_RD_REG(addr,regname)         BL_RD_WORD(addr+regname##_OFFSET)
+#define BL_WR_REG(addr,regname,val)     BL_WR_WORD(addr+regname##_OFFSET,val)
+```
+
+It is worthy of noting the use of *\*volatile uint32_t*. This would prevent compiler optimizing
+the code accidently, which could result in subtle bugs that is very hard to find out.

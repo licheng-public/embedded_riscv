@@ -2,6 +2,9 @@
 
 TODO: add more details on GPIO
 
+We would use GPIO pin 0 and 1 to connect LEDs. Here is the connection.
+![alt text](IMG_led_conn.jpeg "LED connection")
+
 ```c
 ~/disk2/1208_bl_iot/bl_iot_sdk/customer_app/bl602_boot2$ git diff
 diff --git a/customer_app/bl602_boot2/Makefile b/customer_app/bl602_boot2/Makefile

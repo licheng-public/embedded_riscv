@@ -412,7 +412,8 @@ bool toggle_n_bits_x(uint32_t *p_out, uint32_t in, uint8_t n, uint8_t x) {
 - **set a specific value to a multiple bit field**
 This set the value of multiple consecutive bits starting from position x to a target value.
 In order to do this, we have to mask off the respective bits to all zeros. After that, OR the
-value with the target values starting from the position x.
+value with the target values starting from the position x. Assume the specific value does not
+exceed the limit of length n.
 ```c
 /* set the value of n bits from position x to target_val in original value in */
 bool set_value_x(uint32_t *p_out, uint32_t in, uint32_t target_val,
@@ -424,7 +425,7 @@ bool set_value_x(uint32_t *p_out, uint32_t in, uint32_t target_val,
     /* intentionally ignore checking other parameters */
     uint32_t mask = ~((((uint32_t) 1 << n) - 1) << x);
 
-    *p_out = (in & mask) | target_val;
+    *p_out = (in & mask) | (target_val << x);
     return true;
 }
 ```

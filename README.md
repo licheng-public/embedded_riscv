@@ -13,6 +13,7 @@ Here are the contents of the whole project planed:
 3. [pine_cone_notes](pine_cone_notes/README.md)
 
 - The notes that I took during my own experiments on on the Pine cone board (BL602 evb).
+${\color{red} UPDATE \space 01/16/2026}$ **add LCD 1602**
 
 4. [tools](tools/README.md)
 
